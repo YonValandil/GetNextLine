@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjourne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/29 03:10:44 by jjourne           #+#    #+#             */
-/*   Updated: 2017/04/29 03:21:45 by jjourne          ###   ########.fr       */
+/*   Created: 2017/04/29 03:10:37 by jjourne           #+#    #+#             */
+/*   Updated: 2017/04/29 03:13:23 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
 
-#include "libft.h"
+int		get_next_line(const int fd, char **line)
+{
+	int rd;
+  char buf[BUF_SIZE + 1];
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/fcntl.h>
-
-#define BUF_SIZE 32
-
-//int   read_file(char *file);
-int		get_next_line(const int fd, char **line);
-
-#endif
+  if (fd < 0 || !line)
+		return (-1);
+  while (rd > 0)
+  {
+    rd = read(fd, buf, BUF_SIZE);
+    buf[rd] = '\0';
+    ft_putstr(buf);
+  }
+  return (1);
+}
