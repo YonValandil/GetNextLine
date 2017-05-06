@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int		get_next_line(const int fd, char **line)
 {
@@ -32,13 +33,14 @@ int		get_next_line(const int fd, char **line)
 
 		//lst->content = (char*)ft_memalloc(sizeof(char) * ft_strlen(buf));
 		tmp = (char*)ft_memalloc(sizeof(char) * ft_strlen(buf));
-		//tmp = buf;
 		tmp = lst->content;
 		lst->content = ft_strjoin(lst->content, buf);
+		printf("\navant free tmp : %s\n", tmp);
 		ft_memdel((void*)&tmp);
-
+		printf("\napres free tmp : %s\n", tmp);
+		
 		//tmp = ft_strjoin(lst->content, buf);
-		//ft_memdel((void*)&s);
+		//ft_memdel((void*)&(lst->content));
 
 		buf[rd] = '\0';
 	}
