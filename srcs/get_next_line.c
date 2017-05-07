@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 03:10:37 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/05 23:01:40 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/05/07 07:19:11 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,18 @@ int		get_next_line(const int fd, char **line)
 	//curr = lst;
 	if (fd < 0 || !line)
 		return (-1);
-	while (rd > 0)
+	while ((rd = read(fd, buf, BUF_SIZE)))
 	{
-		rd = read(fd, buf, BUF_SIZE);
-
-		//lst->content = (char*)ft_memalloc(sizeof(char) * ft_strlen(buf));
-		tmp = (char*)ft_memalloc(sizeof(char) * ft_strlen(buf));
-		tmp = lst->content;
-		lst->content = ft_strjoin(lst->content, buf);
-		printf("\navant free tmp : %s\n", tmp);
-		ft_memdel((void*)&tmp);
-		printf("\napres free tmp : %s\n", tmp);
-		
-		//tmp = ft_strjoin(lst->content, buf);
-		//ft_memdel((void*)&(lst->content));
-
+		if (!(lst->content = ft_strchr(lst->content, '\n')))
+		{
+			tmp = lst->content;
+			lst->content = ft_strjoin(lst->content, buf);
+			ft_memdel((void*)&tmp);
+		}
 		buf[rd] = '\0';
 	}
+
 	ft_putstr(lst->content);
+	ft_memdel((void*)&(lst->content));
 	return (1);
 }

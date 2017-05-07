@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jjourne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 03:10:44 by jjourne           #+#    #+#             */
-/*   Updated: 2017/04/29 03:21:45 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/05/06 22:38:19 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 #define BUF_SIZE 32
 
-//int   read_file(char *file);
 int		get_next_line(const int fd, char **line);
 
 #endif
