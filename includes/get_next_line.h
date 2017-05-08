@@ -19,7 +19,7 @@
 #include <sys/stat.h>
 #include <sys/fcntl.h>
 
-#define BUF_SIZE 32
+#define BUFF_SIZE 35
 
 int		get_next_line(const int fd, char **line);
 

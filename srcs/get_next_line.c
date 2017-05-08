@@ -15,32 +15,35 @@
 
 int		get_next_line(const int fd, char **line)
 {
-	int				rd;
-	char			buf[BUF_SIZE + 1];
-	static t_list	*lst = NULL;
+	int				r;
+	char			b[BUFF_SIZE + 1];
+	static t_list	*l = NULL;
 	//t_list		*curr;
 	char			*tmp;
 
-	if (!lst)
-		lst = ft_lstnew("", 0); // "" to null
-	//lst->content = ft_memalloc(1);
-
-	rd = 1;
-	tmp = NULL;
-	//curr = lst;
 	if (fd < 0 || !line)
 		return (-1);
-	while (0 < (rd = read(fd, buf, BUF_SIZE)))
+
+	if (!l)
+		l = ft_lstnew("\0", 1); // "" to null
+	//l->content = ft_memalloc(sizeof(char) * 1);
+
+	r = 1;
+	tmp = NULL;
+	//curr = lst;
+
+	while (0 < (r = read(fd, b, BUFF_SIZE)) && !(ft_memchr(l->content, '\n', r)))
 	{
-		buf[rd] = '\0';
-		if (!(ft_memchr(lst->content, '\n', rd))) //|| !lst->content
-		{
-			tmp = lst->content;
-			lst->content = ft_strjoin(lst->content, buf);
+		b[r] = '\0';
+		//if (!(ft_memchr(l->content, '\n', r))) //|| !l->content
+		//{
+			tmp = l->content;
+			l->content = ft_strjoin(l->content, b);
 			ft_memdel((void*)&tmp);
-		}
+		//}
 	}
-	ft_putstr(lst->content);
-	ft_memdel((void*)&(lst->content));
+	ft_putstr(l->content);
+	//printf("\n%s\n", (char*)l->content);
+	ft_memdel((void*)&(l->content));
 	return (1);
 }
