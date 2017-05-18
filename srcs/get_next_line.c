@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 03:10:37 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/18 06:29:32 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/05/18 06:37:36 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,8 @@ int		get_next_line(const int fd, char **line)
 			//tmp[ft_memchr(b, '\n', r) - (void*)b + 1] = '\0';
 			*line = ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1);
 			ft_memdel((void*)&(l->content));
-			l->content = ft_memjoin(l->content, tmp, 0, ft_memchr(b, '\n', r) - (void*)b + 1);
+			l->content = ft_memjoin(tmp, NULL, ft_memchr(b, '\n', r) - (void*)b + 1, 0);
 			ft_memdel((void*)&tmp);
-			//ft_memdel((void*)&(l->content));
-			//l->content = ft_memcpy(l->content, ft_memchr(buf, '\n', r), r);
-			//l->content = ft_memjoin(l->content, ft_memchr(b, '\n', r), r, );
 			break ;
 		}
 
@@ -94,6 +91,7 @@ int		get_next_line(const int fd, char **line)
 		ft_memdel((void*)&tmp);
 	}
 	//printf("\n%s\n", (char*)l->content);
-	ft_memdel((void*)&(l->content));
+	*line = ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1);
+	//ft_memdel((void*)&(l->content));
 	return (1);
 }
