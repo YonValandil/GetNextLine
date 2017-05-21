@@ -71,9 +71,9 @@ int		get_next_line(const int fd, char **line)
 			ft_memccpy(tmp, b, '\n', ft_memchr(b, '\n', r) - (void*)b + 1);
 			//tmp[ft_memchr(b, '\n', r) - (void*)b + 1] = '\0';
 			printf("\navant line:\ncontent = %s\ntmp = %s\njoin = %s\n", (char*)l->content, tmp, (char*)(ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1)));
-			//*line = ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1);
-			*line = ft_strjoin(l->content, tmp);
-			//ft_memdel((void*)&(l->content));
+			*line = ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1);
+			//*line = ft_strjoin(l->content, tmp);
+			ft_memdel((void*)&(l->content));
 			l->content = ft_memjoin(tmp, NULL, ft_memchr(b, '\n', r) - (void*)b + 1, 0);
 			i = ft_memchr(b, '\n', r) - (void*)b + 1;
 			//ft_memdel((void*)&tmp);
