@@ -15,48 +15,40 @@
 
 void	*ft_memjoin(void const *s1, void const *s2, size_t n1, size_t n2)
 {
-	int		i;
-	int		j;
-	char	*ns;
+	size_t		i;
+	size_t		j;
+	void			*ns;
 
 	if (!s1 && !s2)
 		return (0);
-	if (!s1)
+	if (!s1 || !s2)
 	{
-			ns = ft_memalloc(n2);
-			if (ns == NULL)
-				return (NULL);
-			ns = ft_memcpy(ns, (void*)s2, n2);
-			return ((unsigned char*)ns);
-	}
-	if (!s2)
-	{
-			ns = ft_memalloc(n1);
-			if (ns == NULL)
-				return (NULL);
-			ns = ft_memcpy(ns, (void*)s1, n1);
-			return ((unsigned char*)ns);
+		ns = ft_memalloc((!s1) ? n2 : n1);
+		if (ns == NULL)
+			return (NULL);
+		ns = ft_memcpy(ns, ((!s1) ? (void*)s2 : (void*)s1) , ((!s1) ? n2 : n1));
+		return ((unsigned char*)ns);
 	}
 	i = -1;
 	j = -1;
-	ns = ft_memalloc(n1 + n2);
+	ns = (unsigned char*)ft_memalloc(n1 + n2);
 	if (ns == NULL)
 		return (NULL);
-	while (((const unsigned char*)s1)[++i] < n1)
-		ns[i] = ((const unsigned char*)s1)[i];
-	while (((const unsigned char*)s2)[++j] < n2)
-		ns[i++] = ((const unsigned char*)s2)[j];
+	while (++i < n1)
+		((unsigned char*)ns)[i] = ((const unsigned char*)s1)[i];
+	while (++j < n2)
+		((unsigned char*)ns)[i++] = ((const unsigned char*)s2)[j];
 	return ((unsigned char*)ns);
 }
 
 int		get_next_line(const int fd, char **line)
 {
-	int				r;
+	size_t				r;
+	size_t				i;
 	char			b[BUFF_SIZE + 1];
 	static t_list	*l = NULL;
 	//t_list		*curr;
 	char			*tmp;
-	int				i;
 
 	if (fd < 0 || !line)
 		return (-1);
@@ -72,23 +64,17 @@ int		get_next_line(const int fd, char **line)
 	while (0 < (r = read(fd, b, BUFF_SIZE)))
 	{
 		b[r] = '\0';
-
-		//printf("\nbuf = %s\ncontent = %s\n\n", b, (char*)l->content);
 //IF MEMCHR ICI
-		//if (!(tmp = ft_memalloc(1)))
-		//	return (0);
-
 		tmp = l->content;
-		l->content = ft_memjoin(l->content, b, i, r);
-		//l->content = ft_strjoin(l->content, b);
-
-		printf("\nbuf = %s\ncontent = %s\nr = %d\n i  = %d\n", b, (char*)l->content, r, i);
+		l->content = (char*)ft_memjoin(l->content, b, i, r + 1);
 		i += r;
 		ft_memdel((void*)&tmp);
 	}
-	printf("\n\ncontent final = %s\nr = %d\n", (char*)l->content, r);
-	//printf("\n%s\n", (char*)l->content);
+	((char*)l->content)[i] = '\0';
+	//ft_putstr((char*)l->content);
+
 	//*line = ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1);
 	//ft_memdel((void*)&(l->content));
+	//ft_memdel((void*)&l);
 	return (1);
 }

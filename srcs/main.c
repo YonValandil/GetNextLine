@@ -6,6 +6,7 @@ int		main(int argc, char *argv[])
   int r;
   int fd;
 
+
   if (argc > 1)
   {
     fd = open(argv[1], O_RDONLY);
