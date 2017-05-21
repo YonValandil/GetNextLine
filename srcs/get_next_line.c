@@ -64,7 +64,22 @@ int		get_next_line(const int fd, char **line)
 	while (0 < (r = read(fd, b, BUFF_SIZE)))
 	{
 		b[r] = '\0';
-//IF MEMCHR ICI
+		if (ft_memchr(b, '\n', r))
+		{
+			if (!(tmp = ft_memalloc(ft_memchr(b, '\n', r) - (void*)b + 1)))
+				return (0);
+			ft_memccpy(tmp, b, '\n', ft_memchr(b, '\n', r) - (void*)b + 1);
+			//tmp[ft_memchr(b, '\n', r) - (void*)b + 1] = '\0';
+			printf("\navant line:\ncontent = %s\ntmp = %s\njoin = %s\n", (char*)l->content, tmp, (char*)(ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1)));
+			//*line = ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1);
+			*line = ft_strjoin(l->content, tmp);
+			//ft_memdel((void*)&(l->content));
+			l->content = ft_memjoin(tmp, NULL, ft_memchr(b, '\n', r) - (void*)b + 1, 0);
+			i = ft_memchr(b, '\n', r) - (void*)b + 1;
+			//ft_memdel((void*)&tmp);
+			printf("\nline in GNL = %s\n", *line);
+			return (1);
+		}
 		tmp = l->content;
 		l->content = (char*)ft_memjoin(l->content, b, i, r + 1);
 		i += r;
