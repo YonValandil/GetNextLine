@@ -11,10 +11,10 @@ int		main(int argc, char *argv[])
   {
     fd = open(argv[1], O_RDONLY);
     r = get_next_line(fd, argv);
-    printf("\n\nreturn GNL : %d\n", r);
+    printf("\nreturn GNL : %d\n", r);
 
     r = get_next_line(fd, argv);
-    printf("\n\nreturn GNL : %d\n", r);
+    //printf("\n\nreturn GNL : %d\n", r);
     if (close                                                                                                                                                                                                            (fd))
       write(2, "file close failed\n", 18);
   }

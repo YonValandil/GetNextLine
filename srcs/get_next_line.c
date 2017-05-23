@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 03:10:37 by jjourne           #+#    #+#             */
-/*   Updated: 2017/05/18 06:37:36 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/05/22 22:49:28 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ int		get_next_line(const int fd, char **line)
 				return (0);
 			ft_memccpy(tmp, b, '\n', ft_memchr(b, '\n', r) - (void*)b + 1);
 			//tmp[ft_memchr(b, '\n', r) - (void*)b + 1] = '\0';
-			printf("\navant line:\ncontent = %s\ntmp = %s\njoin = %s\n", (char*)l->content, tmp, (char*)(ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1)));
+			//printf("\navant line:\ncontent = %s\ntmp = %s\njoin = %s\n", (char*)l->content,
+			//	tmp, (char*)(ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1)));
+  
 			*line = ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1);
 			//*line = ft_strjoin(l->content, tmp);
 			ft_memdel((void*)&(l->content));
