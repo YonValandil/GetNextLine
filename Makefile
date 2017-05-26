@@ -22,8 +22,6 @@ all:
 	make -C libft/
 	$(CC) $(SRCS) -I$(HEADER) -L$(LIB_DIR) -l$(NAME) -o $(EXEC) $(CFLAGS)
 	@echo $(EXEC) Done !
-	@echo ------------------
-	@./$(EXEC) sample.text
 
 clean:
 	rm -f $(OBJS)

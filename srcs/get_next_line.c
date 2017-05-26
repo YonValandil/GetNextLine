@@ -13,6 +13,24 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
+/*t_list		*fd_search(int fd, t_list **l)
+{
+	t_list *current;
+
+	current = l;
+	while (current)
+	{
+		if(current->fd == fd)
+			return (curr);
+		current = current->next;
+	}
+	if(!(current = ft_lstnew(NULL, 0)))
+		return (NULL);
+	current->fd = fd;
+	//add a la chaine, ou pas?
+	return (current);
+}*/
+
 void	*ft_memjoin(void const *s1, void const *s2, size_t n1, size_t n2)
 {
 	size_t		i;
@@ -26,7 +44,7 @@ void	*ft_memjoin(void const *s1, void const *s2, size_t n1, size_t n2)
 		ns = ft_memalloc((!s1) ? n2 : n1);
 		if (ns == NULL)
 			return (NULL);
-		ns = ft_memcpy(ns, ((!s1) ? (void*)s2 : (void*)s1) , ((!s1) ? n2 : n1));
+		ns = ft_memcpy(ns, ((!s1) ? (void*)s2 : (void*)s1), ((!s1) ? n2 : n1));
 		return ((unsigned char*)ns);
 	}
 	i = -1;
@@ -44,42 +62,38 @@ void	*ft_memjoin(void const *s1, void const *s2, size_t n1, size_t n2)
 int		get_next_line(const int fd, char **line)
 {
 	size_t				r;
-	size_t				i;
-	char			b[BUFF_SIZE + 1];
-	static t_list	*l = NULL;
-	//t_list		*curr;
-	char			*tmp;
+	static size_t	i = 0;
+	char					b[BUFF_SIZE + 1];
+	static 				t_list	*l = NULL;
+	//t_list			*curr;
+	char					*tmp;
+	char					*tmpbuf;
 
 	if (fd < 0 || !line)
 		return (-1);
-
 	if (!l)
 		l = ft_lstnew(NULL, 0);
-
+	//curr = fd_search(fd, l); //envoyer l'adr du pointeur|remplacer l par curr apres
 	r = 1;
-	i = 0;
 	tmp = NULL;
-	//curr = lst;
-
+	tmpbuf = NULL;
 	while (0 < (r = read(fd, b, BUFF_SIZE)))
 	{
 		b[r] = '\0';
 		if (ft_memchr(b, '\n', r))
 		{
-			if (!(tmp = ft_memalloc(ft_memchr(b, '\n', r) - (void*)b + 1)))
+			if (!(tmpbuf = ft_memalloc(ft_memchr(b, '\n', r) - (void*)b + 1)))
 				return (0);
-			ft_memccpy(tmp, b, '\n', ft_memchr(b, '\n', r) - (void*)b + 1);
-			//tmp[ft_memchr(b, '\n', r) - (void*)b + 1] = '\0';
-			//printf("\navant line:\ncontent = %s\ntmp = %s\njoin = %s\n", (char*)l->content,
-			//	tmp, (char*)(ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1)));
-  
-			*line = ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1);
-			//*line = ft_strjoin(l->content, tmp);
-			ft_memdel((void*)&(l->content));
-			l->content = ft_memjoin(tmp, NULL, ft_memchr(b, '\n', r) - (void*)b + 1, 0);
-			i = ft_memchr(b, '\n', r) - (void*)b + 1;
-			//ft_memdel((void*)&tmp);
-			printf("\nline in GNL = %s\n", *line);
+			ft_memccpy(tmpbuf, b, '\n', ft_memchr(b, '\n', r) - (void*)b + 1);
+			tmpbuf[ft_memchr(b, '\n', r) - (void*)b] = '\0';
+			*line = ft_memjoin(l->content, tmpbuf, i, ft_memchr(b, '\n', r) - (void*)b + 1);
+			tmp = l->content;
+			l->content = (char*)ft_memjoin(
+				ft_memchr(b, '\n', r) + 1, NULL, (void*)b + 3 - ft_memchr(b, '\n', r), 0);
+			i = (void*)b + 3 - ft_memchr(b, '\n', r);
+			ft_memdel((void*)&tmp);
+			ft_memdel((void*)&tmpbuf);
+			printf("%s\n", *line);
 			return (1);
 		}
 		tmp = l->content;
@@ -87,11 +101,9 @@ int		get_next_line(const int fd, char **line)
 		i += r;
 		ft_memdel((void*)&tmp);
 	}
-	((char*)l->content)[i] = '\0';
-	//ft_putstr((char*)l->content);
-
-	//*line = ft_memjoin(l->content, tmp, i, ft_memchr(b, '\n', r) - (void*)b + 1);
-	//ft_memdel((void*)&(l->content));
-	//ft_memdel((void*)&l);
+	i = 0;
+	*line = l->content;
+	printf("%s_", *line);
+	ft_memdel((void*)&(l->content)); // supprimer le maillon entier et pas que content ?
 	return (1);
 }

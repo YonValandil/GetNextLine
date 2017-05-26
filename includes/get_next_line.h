@@ -21,6 +21,7 @@
 
 #define BUFF_SIZE 4
 
+//t_list   *fd_search(int fd, t_list **l);
 void	*ft_memjoin(void const *s1, void const *s2, size_t n1, size_t n2);
 int		get_next_line(const int fd, char **line);
 
