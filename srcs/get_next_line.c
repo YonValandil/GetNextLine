@@ -77,7 +77,7 @@ int		get_next_line(const int fd, char **line)
 	r = 1;
 	tmp = NULL;
 	tmpbuf = NULL;
-	while (0 < (r = read(fd, b, BUFF_SIZE)))
+	while (0 < (r = read(fd, b, BUFF_SIZE))) // le +3 ne marche pas pour tout les buf
 	{
 		b[r] = '\0';
 		if (ft_memchr(b, '\n', r))
@@ -86,14 +86,12 @@ int		get_next_line(const int fd, char **line)
 				return (0);
 			ft_memccpy(tmpbuf, b, '\n', ft_memchr(b, '\n', r) - (void*)b + 1);
 			tmpbuf[ft_memchr(b, '\n', r) - (void*)b] = '\0';
-			*line = ft_memjoin(l->content, tmpbuf, i, ft_memchr(b, '\n', r) - (void*)b + 1);
+			*line = (char*)ft_memjoin(l->content, tmpbuf, i, ft_memchr(b, '\n', r) - (void*)b + 1);
 			tmp = l->content;
-			l->content = (char*)ft_memjoin(
-				ft_memchr(b, '\n', r) + 1, NULL, (void*)b + 3 - ft_memchr(b, '\n', r), 0);
+			l->content = (char*)ft_memjoin(ft_memchr(b, '\n', r) + 1, NULL, (void*)b + 3 - ft_memchr(b, '\n', r), 0);
 			i = (void*)b + 3 - ft_memchr(b, '\n', r);
 			ft_memdel((void*)&tmp);
 			ft_memdel((void*)&tmpbuf);
-			printf("%s\n", *line);
 			return (1);
 		}
 		tmp = l->content;
@@ -103,7 +101,6 @@ int		get_next_line(const int fd, char **line)
 	}
 	i = 0;
 	*line = l->content;
-	printf("%s_", *line);
-	ft_memdel((void*)&(l->content)); // supprimer le maillon entier et pas que content ?
-	return (1);
+	ft_memdel((void*)&(l->content));
+	return (0);
 }
