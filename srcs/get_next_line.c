@@ -11,25 +11,29 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-/*t_list		*fd_search(int fd, t_list **l)
+t_fd_list		*fd_search(int fd, t_fd_list **l)
 {
-	t_list *current;
+	t_fd_list *curr;
 
-	current = l;
-	while (current)
+	curr = *l;
+	 while (curr)
 	{
-		if(current->fd == fd)
+		if(curr->fd == fd)
 			return (curr);
-		current = current->next;
+		curr = curr->next;
 	}
-	if(!(current = ft_lstnew(NULL, 0)))
-		return (NULL);
-	current->fd = fd;
-	//add a la chaine, ou pas?
-	return (current);
-}*/
+	if (!curr)
+	{
+		curr = (t_fd_list*)ft_memalloc(sizeof(t_fd_list)); //non protégé ?
+		curr->fd = fd;
+		curr->i = 0;
+		curr->content = NULL;
+		curr->next = *l;
+		*l = curr;
+	}
+	return (curr);
+}
 
 void	*ft_memjoin(void const *s1, void const *s2, size_t n1, size_t n2)
 {
@@ -62,22 +66,19 @@ void	*ft_memjoin(void const *s1, void const *s2, size_t n1, size_t n2)
 int		get_next_line(const int fd, char **line)
 {
 	size_t				r;
-	static size_t	i = 0;
 	char					b[BUFF_SIZE + 1];
-	static 				t_list	*l = NULL;
-	//t_list			*curr;
+	static 				t_fd_list	*l = NULL;
+	t_fd_list			*curr;
 	char					*tmp;
 	char					*tmpbuf;
 
 	if (fd < 0 || !line)
 		return (-1);
-	if (!l)
-		l = ft_lstnew(NULL, 0);
-	//curr = fd_search(fd, l); //envoyer l'adr du pointeur|remplacer l par curr apres
+	curr = fd_search(fd, &l);
 	r = 1;
 	tmp = NULL;
 	tmpbuf = NULL;
-	while (0 < (r = read(fd, b, BUFF_SIZE))) // le +3 ne marche pas pour tout les buf
+	while (0 < (r = read(curr->fd, b, BUFF_SIZE))) // le +3 ne marche pas pour tout les buf
 	{
 		b[r] = '\0';
 		if (ft_memchr(b, '\n', r))
@@ -86,21 +87,21 @@ int		get_next_line(const int fd, char **line)
 				return (0);
 			ft_memccpy(tmpbuf, b, '\n', ft_memchr(b, '\n', r) - (void*)b + 1);
 			tmpbuf[ft_memchr(b, '\n', r) - (void*)b] = '\0';
-			*line = (char*)ft_memjoin(l->content, tmpbuf, i, ft_memchr(b, '\n', r) - (void*)b + 1);
-			tmp = l->content;
-			l->content = (char*)ft_memjoin(ft_memchr(b, '\n', r) + 1, NULL, (void*)b + 3 - ft_memchr(b, '\n', r), 0);
-			i = (void*)b + 3 - ft_memchr(b, '\n', r);
+			*line = (char*)ft_memjoin(curr->content, tmpbuf, curr->i, ft_memchr(b, '\n', r) - (void*)b + 1);
+			tmp = curr->content;
+			curr->content = (char*)ft_memjoin(ft_memchr(b, '\n', r) + 1, NULL, (void*)b + 3 - ft_memchr(b, '\n', r), 0);
+			curr->i = (void*)b + 3 - ft_memchr(b, '\n', r);
 			ft_memdel((void*)&tmp);
 			ft_memdel((void*)&tmpbuf);
 			return (1);
 		}
-		tmp = l->content;
-		l->content = (char*)ft_memjoin(l->content, b, i, r + 1);
-		i += r;
+		tmp = curr->content;
+		curr->content = (char*)ft_memjoin(curr->content, b, curr->i, r + 1);
+		curr->i += r;
 		ft_memdel((void*)&tmp);
 	}
-	i = 0;
-	*line = l->content;
-	ft_memdel((void*)&(l->content));
+	curr->i = 0;
+	*line = curr->content;
+	ft_memdel((void*)&(curr->content));
 	return (0);
 }

@@ -3,26 +3,27 @@
 
 int		main(int argc, char *argv[])
 {
-  //int r;
   int fd;
+  int fd2;
   char *line;
-
+  char *line2;
 
   line = NULL;
+  line2 = NULL;
   if (argc > 1)
   {
     fd = open(argv[1], O_RDONLY);
+    fd2 = open(argv[2], O_RDONLY);
     while (get_next_line(fd, &line) > 0)
     {
       printf("%s\n", line);
-    //printf("\nreturn GNL : %d\n", r);
       free(line);
+      while (get_next_line(fd2, &line2) > 0)
+      {
+        printf("%s\n", line2);
+        free(line2);
+      }
     }
-    //get_next_line(fd, argv);
-    //get_next_line(fd, argv);
-    //printf("\n\nreturn GNL : %d\n", r);
-//    if (close                                                                                                                                                                                                            (fd))
-//      write(2, "file close failed\n", 18);
   }
 	else
 		write(2, "arguments missing.\n", 19);
