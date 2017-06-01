@@ -63,6 +63,30 @@ void	*ft_memjoin(void const *s1, void const *s2, size_t n1, size_t n2)
 	return ((unsigned char*)ns);
 }
 
+int	make_line(size_t r, char *b, t_fd_list	*curr, char **line)
+{
+	char					*tmp;
+
+	tmp = NULL;
+	if (ft_memchr(b, '\n', r))
+	{
+		if (!(tmp = ft_memalloc(ft_memchr(b, '\n', r) - (void*)b + 1)))
+			return (0);
+		ft_memccpy(tmp, b, '\n', ft_memchr(b, '\n', r) - (void*)b + 1);
+		tmp[ft_memchr(b, '\n', r) - (void*)b] = '\0';
+		*line = (char*)ft_memjoin(curr->content, tmp,
+			curr->i, ft_memchr(b, '\n', r) - (void*)b + 1);
+		ft_memdel((void*)&tmp);
+		tmp = curr->content;
+		curr->content = (char*)ft_memjoin(ft_memchr(b, '\n', r) + 1, NULL,
+			(void*)b + BUFF_SIZE - 1 - ft_memchr(b, '\n', r), 0);
+		curr->i = (void*)b + BUFF_SIZE - 1 - ft_memchr(b, '\n', r);
+		ft_memdel((void*)&tmp);
+		return (1);
+	}
+	return (0);
+}
+
 int		get_next_line(const int fd, char **line)
 {
 	size_t				r;
@@ -70,31 +94,16 @@ int		get_next_line(const int fd, char **line)
 	static 				t_fd_list	*l = NULL;
 	t_fd_list			*curr;
 	char					*tmp;
-	char					*tmpbuf;
 
 	if (fd < 0 || !line)
 		return (-1);
 	curr = fd_search(fd, &l);
 	r = 1;
 	tmp = NULL;
-	tmpbuf = NULL;
 	while (0 < (r = read(curr->fd, b, BUFF_SIZE)))
 	{
-		b[r] = '\0';
-		if (ft_memchr(b, '\n', r))
-		{
-			if (!(tmpbuf = ft_memalloc(ft_memchr(b, '\n', r) - (void*)b + 1)))
-				return (0);
-			ft_memccpy(tmpbuf, b, '\n', ft_memchr(b, '\n', r) - (void*)b + 1);
-			tmpbuf[ft_memchr(b, '\n', r) - (void*)b] = '\0';
-			*line = (char*)ft_memjoin(curr->content, tmpbuf, curr->i, ft_memchr(b, '\n', r) - (void*)b + 1);
-			tmp = curr->content;
-			curr->content = (char*)ft_memjoin(ft_memchr(b, '\n', r) + 1, NULL, (void*)b + BUFF_SIZE - 1 - ft_memchr(b, '\n', r), 0);
-			curr->i = (void*)b + BUFF_SIZE - 1 - ft_memchr(b, '\n', r);
-			ft_memdel((void*)&tmp);
-			ft_memdel((void*)&tmpbuf);
+		if (make_line(r, b, curr, line))
 			return (1);
-		}
 		tmp = curr->content;
 		curr->content = (char*)ft_memjoin(curr->content, b, curr->i, r + 1);
 		curr->i += r;
