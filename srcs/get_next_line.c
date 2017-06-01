@@ -78,7 +78,7 @@ int		get_next_line(const int fd, char **line)
 	r = 1;
 	tmp = NULL;
 	tmpbuf = NULL;
-	while (0 < (r = read(curr->fd, b, BUFF_SIZE))) // le +3 ne marche pas pour tout les buf
+	while (0 < (r = read(curr->fd, b, BUFF_SIZE)))
 	{
 		b[r] = '\0';
 		if (ft_memchr(b, '\n', r))
@@ -89,8 +89,8 @@ int		get_next_line(const int fd, char **line)
 			tmpbuf[ft_memchr(b, '\n', r) - (void*)b] = '\0';
 			*line = (char*)ft_memjoin(curr->content, tmpbuf, curr->i, ft_memchr(b, '\n', r) - (void*)b + 1);
 			tmp = curr->content;
-			curr->content = (char*)ft_memjoin(ft_memchr(b, '\n', r) + 1, NULL, (void*)b + 3 - ft_memchr(b, '\n', r), 0);
-			curr->i = (void*)b + 3 - ft_memchr(b, '\n', r);
+			curr->content = (char*)ft_memjoin(ft_memchr(b, '\n', r) + 1, NULL, (void*)b + BUFF_SIZE - 1 - ft_memchr(b, '\n', r), 0);
+			curr->i = (void*)b + BUFF_SIZE - 1 - ft_memchr(b, '\n', r);
 			ft_memdel((void*)&tmp);
 			ft_memdel((void*)&tmpbuf);
 			return (1);
