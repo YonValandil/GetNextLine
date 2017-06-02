@@ -6,10 +6,10 @@
 CC =		gcc
 EXEC =		bin
 NAME =		ft
-SRCS_DIR =	./srcs/
+SRCS_DIR =	./
 OBJS_DIR =	./
 LIB_DIR = 	./libft/
-HEADER =	./includes/
+HEADER =	./
 CFLAGS =	-Wall -Werror -Wextra -g
 ARFLAGS =	-rcs
 CFILES =	main get_next_line
