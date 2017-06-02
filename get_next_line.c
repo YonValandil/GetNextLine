@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 03:10:37 by jjourne           #+#    #+#             */
-/*   Updated: 2017/06/02 04:29:17 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/06/02 04:34:08 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_fd_list	*fd_search(int fd, t_fd_list **l)
 	t_fd_list *curr;
 
 	curr = *l;
-	 while (curr)
+	while (curr)
 	{
 		if (curr->fd == fd)
 			return (curr);
@@ -63,7 +63,7 @@ void		*ft_memjoin(void const *s1, void const *s2, size_t n1, size_t n2)
 	return ((unsigned char*)ns);
 }
 
-int			make_line(size_t r, char *b, t_fd_list	*curr, char **line)
+int			make_line(size_t r, char *b, t_fd_list *curr, char **line)
 {
 	char *tmp;
 
