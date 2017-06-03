@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 03:10:44 by jjourne           #+#    #+#             */
-/*   Updated: 2017/06/02 04:52:48 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/06/03 17:00:17 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # include "libft.h"
+# include <stdio.h>
 
 # include <sys/types.h>
 # include <sys/stat.h>

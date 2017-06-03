@@ -10,7 +10,7 @@ SRCS_DIR =	./
 OBJS_DIR =	./
 LIB_DIR = 	./libft/
 HEADER =	./
-CFLAGS =	-Wall -Werror -Wextra -g
+CFLAGS =#	-Wall -Werror -Wextra -g
 ARFLAGS =	-rcs
 CFILES =	main get_next_line
 
