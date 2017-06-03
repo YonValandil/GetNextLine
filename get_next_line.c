@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 03:10:37 by jjourne           #+#    #+#             */
-/*   Updated: 2017/06/02 04:34:08 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/06/03 09:59:54 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ int			get_next_line(const int fd, char **line)
 	curr->i = 0;
 	*line = curr->content;
 	ft_memdel((void*)&(curr->content));
+	//if ()
 	return (0);
 }
