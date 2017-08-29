@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 04:27:49 by jjourne           #+#    #+#             */
-/*   Updated: 2017/06/03 18:44:33 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/08/29 15:21:42 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,22 @@ int		main(int argc, char *argv[])
 	// line2 = NULL;
 	ret = 0;
 
-	fd = open(argv[1], O_RDONLY);
-	ret = get_next_line(fd, &line);
-	printf("*%s*\n", line);
-	printf(">>>> %d\n", ret);
+	//fd = open(argv[1], O_RDONLY);
+	//ret = get_next_line(fd, &line);
+	//printf("*%s*\n", line);
+	//printf(">>>> %d\n", ret);
 
 
-	free(line);
+	//free(line);
 	// fd2 = open(argv[argc], O_RDONLY);
 	ret = get_next_line(fd, &line);
 	printf("*%s*\n", line);
-	printf(">>>> %d\n", ret);
+	//printf(">>>> %d\n", ret);
 
 	free(line);
-	ret = get_next_line(fd, &line);
-	printf("*%s*\n", line);
-	printf(">>>> %d\n", ret);
+	//ret = get_next_line(fd, &line);
+	//printf("*%s*\n", line);
+	//printf(">>>> %d\n", ret);
 /*
 	if (argc > 1)
 	{

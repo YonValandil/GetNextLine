@@ -10,7 +10,7 @@ SRCS_DIR =	./
 OBJS_DIR =	./
 LIB_DIR = 	./libft/
 HEADER =	./
-CFLAGS =#	-Wall -Werror -Wextra -g
+#CFLAGS =#	-Wall -Werror -Wextra -g
 ARFLAGS =	-rcs
 CFILES =	main get_next_line
 
@@ -20,7 +20,7 @@ OBJS =		$(SRCS:%.c=$(OBJS_DIR)%.o)
 
 all:
 	make -C libft/
-	$(CC) $(SRCS) -I$(HEADER) -L$(LIB_DIR) -l$(NAME) -o $(EXEC) $(CFLAGS)
+	$(CC) $(SRCS) -I$(HEADER) -L$(LIB_DIR) -l$(NAME) -o $(EXEC)
 	@echo $(EXEC) Done !
 
 clean:

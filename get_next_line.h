@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 03:10:44 by jjourne           #+#    #+#             */
-/*   Updated: 2017/06/03 17:00:17 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/08/29 17:07:59 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/stat.h>
 # include <sys/fcntl.h>
 
-# define BUFF_SIZE 4
+# define BUFF_SIZE 10
 
 typedef struct			s_fd_list
 {
