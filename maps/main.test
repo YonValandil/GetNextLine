@@ -6,7 +6,11 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 04:27:49 by jjourne           #+#    #+#             */
+<<<<<<< HEAD:maps/main.test
 /*   Updated: 2017/08/31 05:45:14 by jjourne          ###   ########.fr       */
+=======
+/*   Updated: 2017/08/29 15:21:42 by jjourne          ###   ########.fr       */
+>>>>>>> 760e78473fa7de53b0587ce70750f2d0cf7a9acd:main.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +47,26 @@ int		main(int argc, char *argv[])
 	// printf(">>>> %d\n", ret);
 	// free(line);
 
+<<<<<<< HEAD:maps/main.test
+=======
+	//fd = open(argv[1], O_RDONLY);
+	//ret = get_next_line(fd, &line);
+	//printf("*%s*\n", line);
+	//printf(">>>> %d\n", ret);
+
+
+	//free(line);
+	// fd2 = open(argv[argc], O_RDONLY);
+	ret = get_next_line(fd, &line);
+	printf("*%s*\n", line);
+	//printf(">>>> %d\n", ret);
+
+	free(line);
+	//ret = get_next_line(fd, &line);
+	//printf("*%s*\n", line);
+	//printf(">>>> %d\n", ret);
+/*
+>>>>>>> 760e78473fa7de53b0587ce70750f2d0cf7a9acd:main.c
 	if (argc > 1)
 	{
 		fd = open(argv[1], O_RDONLY);

@@ -6,7 +6,7 @@
 /*   By: jjourne <jjourne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 03:10:37 by jjourne           #+#    #+#             */
-/*   Updated: 2017/08/31 06:16:46 by jjourne          ###   ########.fr       */
+/*   Updated: 2017/08/31 08:16:35 by jjourne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			ft_norme(t_fd_list *curr, char **line)
 int			get_next_line(const int fd, char **line)
 {
 	size_t				r;
-	char				b[BUFF_SIZE + 1];
+	char				b[(BUFF_SIZE + 1 < 0) ? 1 : BUFF_SIZE + 1];
 	static t_fd_list	*l = NULL;
 	t_fd_list			*curr;
 	char				*tmp;
