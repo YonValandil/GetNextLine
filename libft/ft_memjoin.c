@@ -1,3 +1,5 @@
+#include "libft.h"
+
 void		*ft_memjoin(void const *s1, void const *s2, size_t n1, size_t n2)
 {
 	size_t	i;

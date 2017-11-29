@@ -12,6 +12,10 @@
 
 #include "get_next_line.h"
 
+static t_fd_list	*fd_search(int fd, t_fd_list **curr);
+static int		make_line(t_fd_list *curr, char **line);
+static int		last_check(t_fd_list *curr, char **line);
+
 static t_fd_list	*fd_search(int fd, t_fd_list **l)
 {
 	t_fd_list	*curr;
@@ -72,7 +76,7 @@ static int			last_check(t_fd_list *curr, char **line)
 	return (0);
 }
 
-int			get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
 	ssize_t				r;
 	char				b[(BUFF_SIZE + 1 < 0) ? 1 : BUFF_SIZE + 1];

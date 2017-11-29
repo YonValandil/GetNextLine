@@ -14,8 +14,8 @@
 # define GET_NEXT_LINE_H
 
 # include "libft/libft.h"
-# include <stdio.h>
 
+# include <stdio.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/fcntl.h>
@@ -30,11 +30,6 @@ typedef struct			s_fd_list
 	struct s_fd_list	*next;
 }						t_fd_list;
 
-t_fd_list				*fd_search(int fd, t_fd_list **curr);
-int						make_line(t_fd_list *curr, char **line);
-void					*ft_memjoin(void const *s1, void const *s2,
-							size_t n1, size_t n2);
 int						get_next_line(const int fd, char **line);
-int						last_check(t_fd_list *curr, char **line);
 
 #endif
