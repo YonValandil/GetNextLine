@@ -108,7 +108,7 @@ int			get_next_line(const int fd, char **line)
 	t_fd_list			*curr;
 	char				*tmp;
 
-	if (fd < 0 || !line || BUFF_SIZE <= 0 || read(fd, b, 0) < 0)
+	if (fd < 0 || !line || BUFF_SIZE <= 0)
 		return (-1);
 	if (!(curr = fd_search(fd, &l)))
 		return (-1);
@@ -121,5 +121,7 @@ int			get_next_line(const int fd, char **line)
 		if (make_line(curr, line))
 			return (1);
 	}
+	if (r == -1)
+		return (-1);
 	return (last_check(curr, line));
 }
