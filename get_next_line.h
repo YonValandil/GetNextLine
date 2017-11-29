@@ -14,8 +14,6 @@
 # define GET_NEXT_LINE_H
 
 # include "libft/libft.h"
-
-# include <stdio.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/fcntl.h>
