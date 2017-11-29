@@ -102,7 +102,7 @@ int			last_check(t_fd_list *curr, char **line)
 
 int			get_next_line(const int fd, char **line)
 {
-	size_t				r;
+	ssize_t				r;
 	char				b[(BUFF_SIZE + 1 < 0) ? 1 : BUFF_SIZE + 1];
 	static t_fd_list	*l = NULL;
 	t_fd_list			*curr;
